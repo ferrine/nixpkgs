@@ -24,7 +24,11 @@ buildPythonPackage rec {
     hash = "sha256-VvSJTuEYjIz/4TTibSLkbg65YmcYqHImTHOomeorMJc=";
   };
 
-  patches = [ ./cmake.patch ];
+  patches = [
+    ./0001-don-t-rebuild-abseil.patch
+    ./0002-don-t-fetch-pybind11.patch
+    ./0003-do-not-use-apple-if-in-cmake.patch
+  ];
 
   dontUseCmakeConfigure = true;
 
@@ -48,7 +52,6 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "tree" ];
 
   meta = with lib; {
-    broken = stdenv.isDarwin;
     description = "Tree is a library for working with nested data structures";
     homepage = "https://github.com/deepmind/tree";
     license = licenses.asl20;
